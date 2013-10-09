@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class LoginServlet
@@ -27,6 +28,10 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//No se permite el acceso directo hay que pasar por el formulario
+		//se añade creación de sesión sólo si accede por get
+		HttpSession sesion = request.getSession();
+		sesion.setAttribute("autenticado", "no");
+		
 		this.getServletConfig().getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
 	}
 
@@ -38,11 +43,18 @@ public class LoginServlet extends HttpServlet {
 		String nombre = request.getParameter("nombre");
 		String clave = request.getParameter("clave");
 		
+		//actualizamos el request para añadirle un atributo
+		request.setAttribute("miAtributo", "que tengo un atributo");
+		
+		//si accede por el formulario de manera normal y se autentica correctamente lo indicamos en la sesión.
+		HttpSession sesion = request.getSession();
 		//si el nombre/clave concuerdan con usuario1 le damos la bienvenida si no le devolvemos al formulario de login
 		if(nombre.equalsIgnoreCase("usuario1") && clave.equalsIgnoreCase("usuario1")){
+			sesion.setAttribute("autenticado", "si");
 			this.getServletContext().getRequestDispatcher("/bienvenido.jsp").forward(request, response);
 		}
 		else{
+			sesion.setAttribute("autenticado", "no");
 			this.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
 					
 		}
