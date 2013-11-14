@@ -21,11 +21,23 @@ public class Usuario {
 	private String apellidos;
 	@Column(name = "email")
 	private String email;
-	@OneToOne(cascade = ALL)
+	@OneToOne(cascade=ALL)
 	private Direccion direccion;
 	
+	public Usuario() {
+		// constructor vacío porque se ha creado otro parametrizado
+	}
 	
-	
+	public Usuario(String nombre, String password, String apellidos,
+			String email, Direccion direccion) {
+		super();
+		this.nombre = nombre;
+		this.password = password;
+		this.apellidos = apellidos;
+		this.email = email;
+		this.direccion = direccion;
+	}
+
 	public Direccion getDireccion() {
 		return direccion;
 	}

@@ -35,5 +35,6 @@
 		</fieldset>
 		<input type="submit" value="Enviar">
 	</form>
+	<p><a href="registro.jsp"> Regístrate</a> </p>
 </body>
 </html>

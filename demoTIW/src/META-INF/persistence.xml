@@ -5,6 +5,9 @@
 		<jta-data-source>jdbc/tiw</jta-data-source>
 		<class>es.uc3m.tiw.dominios.Usuario</class>
 		<class>es.uc3m.tiw.dominios.Direccion</class>
+		 <!-- la siguiente propiedad hace que se pueda actualizar las tablas automáticamente
+                        si se realiza algún cambio en la clase Usuario, los valores posibles pueden verse aquí:
+                        http://stackoverflow.com/questions/438146/hibernate-question-hbm2ddl-auto-possible-values-and-what-they-do -->
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
 			<property name="hibernate.hbm2ddl.auto" value="update"/>

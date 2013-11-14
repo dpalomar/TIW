@@ -19,6 +19,7 @@
 	<c:choose>
 		<c:when test="${auten=='si' }">
 		<p>Te has autenticado correctamente: (lo mantengo en sesión)</p>
+		<p>¿Quieres ver la lista de todos los usuarios de la bbdd? <a href="gestionusuarios?accion=verlista">Ver lista</a></p>
 		</c:when>
 		<c:when test="${auten=='no' }">
 			<p>No te has autenticado correctamente, debes pasar por el </p>
