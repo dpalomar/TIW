@@ -1,5 +1,8 @@
 package dominios;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -9,6 +12,10 @@ import static javax.persistence.GenerationType.AUTO;
 
 import javax.persistence.Column;
 import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
+
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.FetchType.EAGER;
 
 @Entity
 @Table(name="usuario")
@@ -24,8 +31,11 @@ public class Usuario {
 	@Column(name = "passwd", nullable = false)
 	private String password;
 	
-	@OneToOne
+	@OneToOne(cascade = ALL)
 	private Direccion direccion;
+	
+	@OneToMany(cascade = ALL, mappedBy = "usuario", fetch = EAGER)
+	private List<Direccion> direcciones;
 	
 	
 	public Usuario() {
@@ -35,6 +45,7 @@ public class Usuario {
 		super();
 		this.nombre = nombre;
 		this.password = password;
+		this.direcciones = new ArrayList<Direccion>();
 	}
 	public Long getId() {
 		return id;
@@ -57,13 +68,20 @@ public class Usuario {
 	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", nombre=" + nombre + ", password="
-				+ password + "]";
+				+ password + ", direccion=" + direccion + ", direcciones="
+				+ direcciones + "]";
 	}
 	public Direccion getDireccion() {
 		return direccion;
 	}
 	public void setDireccion(Direccion direccion) {
 		this.direccion = direccion;
+	}
+	public List<Direccion> getDirecciones() {
+		return direcciones;
+	}
+	public void setDirecciones(List<Direccion> direcciones) {
+		this.direcciones = direcciones;
 	}
 	
 }

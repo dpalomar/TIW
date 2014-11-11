@@ -5,6 +5,7 @@ import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.AUTO;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Table(name = "direccion")
@@ -19,6 +20,15 @@ public class Direccion {
 	
 	private String localidad;
 	private int codigoPostal;
+	@ManyToOne
+	private Usuario usuario;
+	
+	@Override
+	public String toString() {
+		return "Direccion [id=" + id + ", calle=" + calle + ", ciudad="
+				+ ciudad + ", localidad=" + localidad + ", codigoPostal="
+				+ codigoPostal + ", usuario=" + usuario + "]";
+	}
 	public Direccion(String calle, String ciudad, String localidad,
 			int codigoPostal) {
 		super();
@@ -60,6 +70,12 @@ public class Direccion {
 	}
 	public void setCodigoPostal(int codigoPostal) {
 		this.codigoPostal = codigoPostal;
+	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 	

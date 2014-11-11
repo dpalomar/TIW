@@ -42,5 +42,13 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	public Usuario buscarUsuario(Long id){
 		return em.find(Usuario.class, id);
 	}
+	
+	@Override
+	public void deleteUsuario(Usuario usuario) throws NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException{
+		
+		ut.begin();
+		em.remove(em.merge(usuario));
+		ut.commit();
+	}
 
 }

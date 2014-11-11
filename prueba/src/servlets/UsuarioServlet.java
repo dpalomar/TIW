@@ -52,18 +52,39 @@ public class UsuarioServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Usuario usuario = new Usuario("david", "123456");
-		Direccion direccion = new Direccion("Gran via", "Madrid", "Madrid", 28080);
-		usuario.setDireccion(direccion);
-				
+		Usuario usuario = null;
+		String evento = request.getParameter("evento");
 		try {
-			dao.guardarUsuario(usuario);
+			if (evento == null) {
+				
+				
+				
+				usuario = new Usuario("david", "123456");
+				Direccion direccion = new Direccion("Gran via", "Madrid", "Madrid", 28080);
+				//con esto insertariamos una sola direccion
+				usuario.setDireccion(direccion);
+				Direccion direccion2 = new Direccion("via Grande", "Madrid", "Madrid", 28000);
+				Direccion direccion3 = new Direccion("Otra mas", "Madrid", "Majadahonda", 28220);
+				//cuidado con esto, si se añade sin inicializar la coleccion en la clase Usuario dara un NullPointerException
+				usuario.getDirecciones().add(direccion2);
+				usuario.getDirecciones().add(direccion3);
 			
-			PrintWriter out = response.getWriter();
-			out.println(dao.buscarUsuario(usuario.getId()));
-			out.close();
+					dao.guardarUsuario(usuario);
+					request.setAttribute("usuario", dao.buscarUsuario(usuario.getId()));
 			
-			
+			}
+			else{
+				Long id = Long.parseLong(request.getParameter("id"));
+				Usuario u = dao.buscarUsuario(id);
+				
+				//esto borra el usuario y sus direcciones asociadas por el cascade
+				dao.deleteUsuario(u);
+				
+
+			}
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -86,7 +107,17 @@ public class UsuarioServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+				
+
+			// 1º ejemplo
+//			PrintWriter out = response.getWriter();
+//			out.println(dao.buscarUsuario(usuario.getId()));
+//			out.close();
+			
+
+			this.getServletConfig().getServletContext().getRequestDispatcher("/usuario.jsp").forward(request, response);
+			
+
 	}
 
 	/**

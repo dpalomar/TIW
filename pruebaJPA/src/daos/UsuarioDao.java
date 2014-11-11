@@ -14,4 +14,9 @@ public interface UsuarioDao {
 
 	public abstract Usuario buscarUsuario(Long id);
 
+	public abstract void deleteUsuario(Usuario usuario)
+			throws NotSupportedException, SystemException, SecurityException,
+			IllegalStateException, RollbackException, HeuristicMixedException,
+			HeuristicRollbackException;
+
 }
