@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.ServletException;
@@ -22,100 +23,68 @@ import daos.UsuarioDao;
 import daos.UsuarioDaoImpl;
 import dominios.Direccion;
 import dominios.Usuario;
+import es.uc3m.tiw.ejb.PruebasBeanLocal;
+import es.uc3m.tiw.ejb.PruebasBeanRemote;
 
 /**
- * Servlet implementation class UsuarioServlet
+ * El servlet delega ahora parte de su comportamiento a la capa de servicios EJB
+ * En concreto a {@link PruebaBean} y por lo tanto no necesita {@link EntityManager} ni {@link UserTransaction}
+ * El codigo tambien se adapta a esta nueva situacion.
+ * @author David Palomar
  */
 @WebServlet("/usuario")
 public class UsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UsuarioDao dao;
-	@PersistenceContext(unitName="pruebaJPA")
+
+	
+	@EJB(name="pruebas")
+	private PruebasBeanRemote servicio;
+/*	
+ * El servlet ya no instancia el Entitymanager y a cambio usa el servicio PruebaBean, 
+ * por lo que tampoco necesita crear las transacciones manualmente
+ * private UsuarioDao dao;
+ * @PersistenceContext(unitName="pruebaJPA")
 	private EntityManager em;
 	@Resource
-	private UserTransaction ut;
+	private UserTransaction ut;*/
        
+	@Override
+	public void init() throws ServletException {
+
+	}
     /**
      * @see HttpServlet#HttpServlet()
      */
     public UsuarioServlet() {
         super();
-        // TODO Auto-generated constructor stub
+
     }
 
-    @Override
-    public void init() throws ServletException {
-    	dao = new UsuarioDaoImpl(em,ut);
-    	
-    }
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Usuario usuario = null;
-		String evento = request.getParameter("evento");
+		String nombre = request.getParameter("nombre");
+		String clave = request.getParameter("password");
 		try {
-			if (evento == null) {
-				
-				
-				
-				usuario = new Usuario("david", "123456");
-				Direccion direccion = new Direccion("Gran via", "Madrid", "Madrid", 28080);
-				//con esto insertariamos una sola direccion
-				usuario.setDireccion(direccion);
-				Direccion direccion2 = new Direccion("via Grande", "Madrid", "Madrid", 28000);
-				Direccion direccion3 = new Direccion("Otra mas", "Madrid", "Majadahonda", 28220);
-				//cuidado con esto, si se añade sin inicializar la coleccion en la clase Usuario dara un NullPointerException
-				usuario.getDirecciones().add(direccion2);
-				usuario.getDirecciones().add(direccion3);
+		
+			Usuario usuario = servicio.guardarUnUsuarioEnLaBaseDeDatos(nombre, clave);
+			String saludo = servicio.saludo();
+			String suma = String.valueOf(servicio.suma(3, 2));
 			
-					dao.guardarUsuario(usuario);
-					request.setAttribute("usuario", dao.buscarUsuario(usuario.getId()));
-			
-			}
-			else{
-				Long id = Long.parseLong(request.getParameter("id"));
-				Usuario u = dao.buscarUsuario(id);
-				
-				//esto borra el usuario y sus direcciones asociadas por el cascade
-				dao.deleteUsuario(u);
-				
-
-			}
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NotSupportedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SystemException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (RollbackException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (HeuristicMixedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (HeuristicRollbackException e) {
+			request.setAttribute("usuario", usuario);
+			request.setAttribute("suma", suma);
+			request.setAttribute("saludo", saludo);
+			this.getServletConfig().getServletContext().getRequestDispatcher("/usuario.jsp").forward(request, response);
+		
+		} catch (SecurityException | IllegalStateException
+				| NotSupportedException | SystemException | RollbackException
+				| HeuristicMixedException | HeuristicRollbackException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-				
 
-			// 1º ejemplo
-//			PrintWriter out = response.getWriter();
-//			out.println(dao.buscarUsuario(usuario.getId()));
-//			out.close();
-			
-
-			this.getServletConfig().getServletContext().getRequestDispatcher("/usuario.jsp").forward(request, response);
 			
 
 	}
@@ -124,7 +93,9 @@ public class UsuarioServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
+		doGet(request, response);
+		
 	}
 
 }
