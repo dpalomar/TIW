@@ -5,6 +5,7 @@
 		<properties>
 			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
 			<property name="javax.persistence.schema-generation.create-database-schemas" value="true"/>
+			<property name="javax.persistence.logging.level" value="FINE"/>
 		</properties>
 	</persistence-unit>
 </persistence>
