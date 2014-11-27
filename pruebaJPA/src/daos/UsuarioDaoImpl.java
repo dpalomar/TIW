@@ -58,4 +58,10 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		
 	}
 
+	@Override
+	public void actualizarUsuario(Usuario usuario) {
+		em.merge(usuario);
+		
+	}
+
 }
