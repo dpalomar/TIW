@@ -23,6 +23,7 @@ import daos.UsuarioDao;
 import daos.UsuarioDaoImpl;
 import dominios.Direccion;
 import dominios.Usuario;
+import ejb.jms.EscribeEnQueue;
 import es.uc3m.tiw.ejb.PruebasBeanLocal;
 import es.uc3m.tiw.ejb.PruebasBeanRemote;
 
@@ -39,6 +40,8 @@ public class UsuarioServlet extends HttpServlet {
 	
 	@EJB(name="pruebas")
 	private PruebasBeanRemote servicio;
+	
+	private EscribeEnQueue cola;
 /*	
  * El servlet ya no instancia el Entitymanager y a cambio usa el servicio PruebaBean, 
  * por lo que tampoco necesita crear las transacciones manualmente
@@ -50,7 +53,7 @@ public class UsuarioServlet extends HttpServlet {
        
 	@Override
 	public void init() throws ServletException {
-
+		cola = new EscribeEnQueue();
 	}
     /**
      * @see HttpServlet#HttpServlet()
@@ -100,6 +103,9 @@ public class UsuarioServlet extends HttpServlet {
 			int codigoPostal = Integer.parseInt(request.getParameter("cp"));
 			String ciudad = request.getParameter("ciudad");
 			Direccion direccion = new Direccion(calle, ciudad, localidad, codigoPostal);
+			
+			cola.enviar(direccion);
+			
 			PrintWriter out = response.getWriter();
 			out.println("Usuario actualizado con su direccion correctamente, puedes verlo en la base de datos");
 			out.close();

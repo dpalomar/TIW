@@ -15,7 +15,8 @@
 <body>
 <p>
 
-	${saludo } ${usuario.nombre }, Te has registrado correctamente y ademas: 2 + 3 = ${suma }
+	${saludo } ${usuario.nombre }, Te has registrado correctamente y ademas: 2 + 3 = ${suma } <br/>
+	Si quieres añadir una direccion hazlo en este <a href="direccion.jsp?id=${usuario.id }">enlace</a>
 
 </p>
 

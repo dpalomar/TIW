@@ -25,7 +25,7 @@
 </style>
 </head>
 <body>
-<h1>Registro de usuarios
+<h1>Registro de usuarios	</h1>
 		<form action="usuario" method="post">
 		<fieldset>
 			<legend>Registro Form</legend>
@@ -36,7 +36,7 @@
 		</fieldset>
 		<input type="submit" value="Enviar"/>
 		</form>
-	</h1>
+
 
 </body>
 </html>
