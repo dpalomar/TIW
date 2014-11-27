@@ -1,15 +1,19 @@
 package dominios;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
+
 import static javax.persistence.GenerationType.AUTO;
+
 import javax.persistence.ManyToOne;
 
 @Entity
 @Table(name = "direccion")
-public class Direccion {
+public class Direccion implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = AUTO)
