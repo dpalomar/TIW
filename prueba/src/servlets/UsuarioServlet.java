@@ -93,9 +93,22 @@ public class UsuarioServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		doGet(request, response);
+		String evento = request.getParameter("evento");
+		if (evento.equalsIgnoreCase("direccion")) {
+			String calle = request.getParameter("calle");
+			String localidad = request.getParameter("localidad");
+			int codigoPostal = Integer.parseInt(request.getParameter("cp"));
+			String ciudad = request.getParameter("ciudad");
+			Direccion direccion = new Direccion(calle, ciudad, localidad, codigoPostal);
+			PrintWriter out = response.getWriter();
+			out.println("Usuario actualizado con su direccion correctamente, puedes verlo en la base de datos");
+			out.close();
+			
+		}else{
+			
 		
+			doGet(request, response);
+		}
 	}
 
 }
