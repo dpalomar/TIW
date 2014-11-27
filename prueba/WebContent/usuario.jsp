@@ -6,17 +6,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	p {
+		font: bolder;
+	}
+</style>
 </head>
 <body>
 <p>
-	${usuario.nombre } | 	${usuario.password } <a href="usuario?evento=borrar&id=${usuario.id }">Borrar</a> 
-	<ol>
-	<c:forEach items="${usuario.direcciones }" var="direccion">
-	<li>${direccion.calle } | ${direccion.ciudad } | ${direccion.localidad } | ${direccion.codigoPostal }</li>
-		
-	
-	</c:forEach>
-	</ol>
+
+	${saludo } ${usuario.nombre }, Te has registrado correctamente y ademas: 2 + 3 = ${suma }
+
 </p>
 
 </body>
