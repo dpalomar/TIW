@@ -10,18 +10,25 @@ import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
 import dominios.Usuario;
-
+/**
+ * 
+ * Esta clase ya no necesita las transacciones manuales, estas estan delegadas al contenedor
+ * Se podia haber declarado tambien como EJB y haber inyectado posteriormente 
+ * en el servicio {@link PruebaBean} o bien que el propio dao pidiera ell persistencecontext
+ * @author David Palomar
+ *
+ */
 public class UsuarioDaoImpl implements UsuarioDao {
 	
 	EntityManager em;
-	UserTransaction ut;
+	
+	// no necesarioUserTransaction ut;
 	
 	
-	
-	public UsuarioDaoImpl(EntityManager em, UserTransaction ut) {
 
+
+	public UsuarioDaoImpl(EntityManager em) {
 		this.em = em;
-		this.ut = ut;
 	}
 
 	/* (non-Javadoc)
@@ -29,9 +36,9 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	 */
 	@Override
 	public Usuario guardarUsuario(Usuario usuario) throws NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException{
-		ut.begin();
+		
 		em.persist(usuario);
-		ut.commit();
+		
 		return usuario;
 	}
 	
@@ -46,9 +53,9 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	@Override
 	public void deleteUsuario(Usuario usuario) throws NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException{
 		
-		ut.begin();
+		
 		em.remove(em.merge(usuario));
-		ut.commit();
+		
 	}
 
 }

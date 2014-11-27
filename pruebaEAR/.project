@@ -6,6 +6,8 @@
 		<project>prueba</project>
 		<project>pruebaJPA</project>
 		<project>pruebaweb2</project>
+		<project>pruebaEJB</project>
+		<project>pruebaEJBClient</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
