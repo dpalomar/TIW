@@ -19,4 +19,6 @@ public interface UsuarioDao {
 			IllegalStateException, RollbackException, HeuristicMixedException,
 			HeuristicRollbackException;
 
+	public abstract void actualizarUsuario(Usuario usuario);
+
 }
