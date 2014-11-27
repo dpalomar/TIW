@@ -104,4 +104,14 @@ public class PruebasBean implements PruebasBeanLocal, PruebasBeanRemote {
     	dao.guardarUsuario(u);
     	return u;
     }
+	@Override
+	public Usuario buscaUsuario(Long id) {
+		
+		return dao.buscarUsuario(id);
+	}
+	@Override
+	public void actualizarUnUsuarioConDireccion(Usuario usuario) {
+		dao.actualizarUsuario(usuario);
+		
+	}
 }

@@ -20,4 +20,8 @@ public interface PruebasBeanRemote {
 
 	public abstract int suma(int operador1, int operador2);
 
+	public abstract Usuario buscaUsuario(Long id);
+
+	public abstract void actualizarUnUsuarioConDireccion(Usuario usuario);
+
 }
