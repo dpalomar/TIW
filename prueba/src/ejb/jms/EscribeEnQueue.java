@@ -8,15 +8,19 @@ import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
 import javax.jms.Queue;
 import javax.jms.Session;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 import dominios.Direccion;
 
 public class EscribeEnQueue {
 
-	  @Resource(mappedName = "jms/_tiwConnectionFactory")
-	  private static ConnectionFactory connectionFactory;
-	  @Resource(mappedName = "jms/pedido")
-	  private static Queue queue;
+//	  @Resource(mappedName = "jms/_tiwConnectionFactory")	
+//	  
+//	  private static ConnectionFactory connectionFactory;
+//	  @Resource(mappedName = "jms/pedido")
+//	  private static Queue queue;
 
 	  public void enviar(Direccion direccion)
 	  {
@@ -25,6 +29,16 @@ public class EscribeEnQueue {
 	    
 	    try
 	    {
+	        ConnectionFactory connectionFactory = null;
+	        
+	        //Get the JNDI Context
+	  
+	            Context jndiContext = new InitialContext();
+	             
+	            //Create the Connection Factory
+	            connectionFactory = (ConnectionFactory) jndiContext.lookup("jms/_tiwConnectionFactory");
+	            Queue queue = (Queue) jndiContext.lookup("jms/pedido"); 
+	
 	      Connection connection = connectionFactory.createConnection();
 	      Session session = connection.createSession(false,
 	        Session.AUTO_ACKNOWLEDGE);
@@ -39,7 +53,7 @@ public class EscribeEnQueue {
 	      session.close();
 	      connection.close();
 	    }
-	    catch (JMSException e)
+	    catch (JMSException | NamingException e)
 	    {
 	      e.printStackTrace();
 	    }

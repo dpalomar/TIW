@@ -18,7 +18,7 @@ import es.uc3m.tiw.ejb.PruebasBeanRemote;
 @MessageDriven(
 		activationConfig = { @ActivationConfigProperty(
 				propertyName = "destinationType", propertyValue = "javax.jms.Queue"), @ActivationConfigProperty(
-				propertyName = "destination", propertyValue = "jms/pedido")
+				propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge")
 		}, 
 		mappedName = "jms/pedido")
 public class PruebaMDB implements MessageListener {

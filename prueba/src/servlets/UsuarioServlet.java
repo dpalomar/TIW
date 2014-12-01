@@ -97,7 +97,7 @@ public class UsuarioServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String evento = request.getParameter("evento");
-		if (evento.equalsIgnoreCase("direccion")) {
+		if (evento != null && evento.equalsIgnoreCase("direccion")) {
 			String calle = request.getParameter("calle");
 			String localidad = request.getParameter("localidad");
 			int codigoPostal = Integer.parseInt(request.getParameter("cp"));
