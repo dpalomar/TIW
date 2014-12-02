@@ -13,6 +13,7 @@ import dominios.Direccion;
  * Por otro se hace uso de CDI y se muestra como inyectar recursos {@link Queue} y {@link JMSContext}
  * que hacen mucho mas simple la distribucion del codigo
  * Para que funcione correctamente esta clase debe ser Inyectada en el {@link UsuarioServlet} y no cargada manualmente.
+ * Tambien hay que incluir un fichero <em>beans.xml</em> vacio en el directorio <strong>WEB-INF</strong>
  * @author David Palomar
  * @see UsuarioServlet
  */

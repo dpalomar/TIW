@@ -18,3 +18,4 @@ Proyectos demo de la asignatura Tecnologías de Internet para la web
 * Todos los dominios deben implementar el interfaz _Serializable_ que pertenece al paquete _java.io_
 * El **connectionFactory** del servidor se llama **jms/_tiwConnectionFactory**
 * La cola en el servidor se llama **jms/pedido**
+* Para que funcione correctamente la clase _EscribeEnQueue_ es necesario usar _CDI_ y por lo tanto incluir un fichero **beans.xml** vacio en el directorio **WEB-INF**
