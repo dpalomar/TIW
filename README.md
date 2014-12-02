@@ -18,3 +18,16 @@ Proyectos demo de la asignatura Tecnologías de Internet para la web
 * Todos los dominios deben implementar el interfaz _Serializable_ que pertenece al paquete _java.io_
 * El **connectionFactory** del servidor se llama **jms/_tiwConnectionFactory**
 * La cola en el servidor se llama **jms/pedido**
+
+## Parte RESTFul
+
+1. añadidos proyectos **BancoEAR** y **BancoWeb**
+2.**NOTA:** a la hora de crear el proyecto con eclipse **NO** usar las plantillas de Glassfish, usar las genericas de eclipse.
+3. **NOTA II:** Tras crear el proyecto _REST_ es necesario cambiar en el **web.xml** el servlet propuesto por este otro:
+
+		org.glassfish.jersey.servlet.ServletContainer
+
+URLs de acceso tras el despliegue:
+
+* Para getText() -- [http://localhost:8080/resources/generic/prueba](http://localhost:8080/resources/generic/prueba )
+* Para getDatos() -- [http://localhost:8080/resources/generic/prueba/23/palabra](http://localhost:8080/resources/generic/prueba/23/palabra)  
