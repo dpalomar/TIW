@@ -3,10 +3,9 @@ package servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,49 +18,26 @@ import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
-import daos.UsuarioDao;
-import daos.UsuarioDaoImpl;
 import dominios.Direccion;
 import dominios.Usuario;
 import ejb.jms.EscribeEnQueue;
-import es.uc3m.tiw.ejb.PruebasBeanLocal;
 import es.uc3m.tiw.ejb.PruebasBeanRemote;
 
 /**
  * El servlet delega ahora parte de su comportamiento a la capa de servicios EJB
  * En concreto a {@link PruebaBean} y por lo tanto no necesita {@link EntityManager} ni {@link UserTransaction}
  * El codigo tambien se adapta a esta nueva situacion.
+ * Se incorpora CDI y se inyecta la clase {@link EscribeEnQueue}
  * @author David Palomar
  */
 @WebServlet("/usuario")
 public class UsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	
 	@EJB(name="pruebas")
 	private PruebasBeanRemote servicio;
-	
+	@Inject
 	private EscribeEnQueue cola;
-/*	
- * El servlet ya no instancia el Entitymanager y a cambio usa el servicio PruebaBean, 
- * por lo que tampoco necesita crear las transacciones manualmente
- * private UsuarioDao dao;
- * @PersistenceContext(unitName="pruebaJPA")
-	private EntityManager em;
-	@Resource
-	private UserTransaction ut;*/
-       
-	@Override
-	public void init() throws ServletException {
-		cola = new EscribeEnQueue();
-	}
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UsuarioServlet() {
-        super();
-
-    }
 
     
 	/**
