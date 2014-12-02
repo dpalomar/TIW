@@ -3,10 +3,9 @@ package servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,12 +18,9 @@ import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
-import daos.UsuarioDao;
-import daos.UsuarioDaoImpl;
 import dominios.Direccion;
 import dominios.Usuario;
 import ejb.jms.EscribeEnQueue;
-import es.uc3m.tiw.ejb.PruebasBeanLocal;
 import es.uc3m.tiw.ejb.PruebasBeanRemote;
 
 /**
@@ -37,10 +33,9 @@ import es.uc3m.tiw.ejb.PruebasBeanRemote;
 public class UsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	
 	@EJB(name="pruebas")
 	private PruebasBeanRemote servicio;
-	
+	@Inject
 	private EscribeEnQueue cola;
 /*	
  * El servlet ya no instancia el Entitymanager y a cambio usa el servicio PruebaBean, 
@@ -53,7 +48,9 @@ public class UsuarioServlet extends HttpServlet {
        
 	@Override
 	public void init() throws ServletException {
-		cola = new EscribeEnQueue();
+		//FIXME: NO hacer esto
+		//cola = new EscribeEnQueue();
+
 	}
     /**
      * @see HttpServlet#HttpServlet()
