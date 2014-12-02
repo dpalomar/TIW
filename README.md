@@ -23,8 +23,8 @@ Proyectos demo de la asignatura Tecnologías de Internet para la web
 ## Parte RESTFul
 
 1. añadidos proyectos **BancoEAR** y **BancoWeb**
-2.**NOTA:** a la hora de crear el proyecto con eclipse **NO** usar las plantillas de Glassfish, usar las genericas de eclipse.
-4. Es mejor usar un _proyecto web dinamico_ y posteriormente añadirle los facets de RESTFul
+2. **NOTA:** a la hora de crear el proyecto con eclipse **NO** usar las plantillas de Glassfish, usar las genericas de eclipse.
+3. Es mejor usar un _proyecto web dinamico_ y posteriormente añadirle los facets de RESTFul
 4. **NOTA II:** Tras crear el proyecto _REST_ es necesario cambiar en el **web.xml** el servlet propuesto por este otro:
 
 		org.glassfish.jersey.servlet.ServletContainer
