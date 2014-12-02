@@ -18,12 +18,14 @@ Proyectos demo de la asignatura Tecnologías de Internet para la web
 * Todos los dominios deben implementar el interfaz _Serializable_ que pertenece al paquete _java.io_
 * El **connectionFactory** del servidor se llama **jms/_tiwConnectionFactory**
 * La cola en el servidor se llama **jms/pedido**
+* Para que funcione correctamente la clase _EscribeEnQueue_ es necesario usar _CDI_ y por lo tanto incluir un fichero **beans.xml** vacio en el directorio **WEB-INF**
 
 ## Parte RESTFul
 
 1. añadidos proyectos **BancoEAR** y **BancoWeb**
 2.**NOTA:** a la hora de crear el proyecto con eclipse **NO** usar las plantillas de Glassfish, usar las genericas de eclipse.
-3. **NOTA II:** Tras crear el proyecto _REST_ es necesario cambiar en el **web.xml** el servlet propuesto por este otro:
+4. Es mejor usar un _proyecto web dinamico_ y posteriormente añadirle los facets de RESTFul
+4. **NOTA II:** Tras crear el proyecto _REST_ es necesario cambiar en el **web.xml** el servlet propuesto por este otro:
 
 		org.glassfish.jersey.servlet.ServletContainer
 
