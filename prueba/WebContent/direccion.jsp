@@ -5,6 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	input{display: block;}
+</style>
 </head>
 <body>
 <h1>Direccion </h1>
@@ -15,10 +18,10 @@
 			<input type="text" id="calle" name="calle" size="40"/>
 			<label for="ciudad" >Ciudad:</label>
 			<input type="text" id="ciudad" name="ciudad" size="40" />
-			<label for="localidad" >Ciudad:</label>
+			<label for="localidad" >Localidad:</label>
 			<input type="text" id="localidad" name="localidad" size="40" />
-			<label for="cp" >Ciudad:</label>
-			<input type="number" id="cp" name="cp" size="5" />
+			<label for="cp" >CP:</label>
+			<input type="number" id="cp" name="cp" size="5" required/>
 			<input type="hidden" name="evento" value="direccion"/>
 			<input type="hidden" name="idUsuario" value="${param.id }">
 		</fieldset>
