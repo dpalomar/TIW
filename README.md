@@ -31,5 +31,6 @@ Proyectos demo de la asignatura Tecnologías de Internet para la web
 
 URLs de acceso tras el despliegue:
 
-* Para getText() -- [http://localhost:8080/resources/generic/prueba](http://localhost:8080/resources/generic/prueba )
-* Para getDatos() -- [http://localhost:8080/resources/generic/prueba/23/palabra](http://localhost:8080/resources/generic/prueba/23/palabra)  
+* Para getText() -- [http://localhost:8080/BancoWeb2/resources/pasarela/](http://localhost:8080/BancoWeb2/resources/pasarela/ )
+* Para getDatos() -- [http://localhost:8080/BancoWeb2/resources/pasarela/23/palabra](http://localhost:8080/BancoWeb2/resources/pasarela/23/palabra)  
+* **NOTA:** Para el resto de URLs mirar el codigo de la clase _PasarelaService_
